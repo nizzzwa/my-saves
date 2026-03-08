@@ -1,4 +1,4 @@
-#my saves
+# my saves
 
 A minimal, privacy-first tool for organising your LinkedIn saved posts.
 All data lives in your browser. Nothing is sent to any server.

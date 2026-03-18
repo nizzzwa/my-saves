@@ -31,7 +31,7 @@ No backend. No account. No cost. Everything runs in your browser.
 
 ## Chrome Extension
 
-[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?logo=google-chrome)](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn){:target="_blank"}
+[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?logo=google-chrome)](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)
 
 👉 **[Install from Chrome Web Store ↗](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)**
 
@@ -84,7 +84,7 @@ extension/
 
 ## My Saves Web App
 
-👉 **[Open My Saves](https://your-username.github.io/your-repo-name)** ← _update this link after deploying_
+👉 **[Open My Saves ↗](https://nizzzwa.github.io/my-saves)**
 
 A single-file, zero-backend HTML app for importing, organising, and revisiting your LinkedIn saved posts. Everything runs in the browser using `localStorage` — no server, no build step, no account required.
 

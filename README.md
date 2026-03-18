@@ -31,8 +31,6 @@ No backend. No account. No cost. Everything runs in your browser.
 
 ## Chrome Extension
 
-[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?logo=google-chrome)](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)
-
 👉 **[Install from Chrome Web Store ↗](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)**
 
 ### Features

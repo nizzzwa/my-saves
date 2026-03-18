@@ -1,34 +1,41 @@
 # LinkedIn Saves Exporter + My Saves
 
-A two-part toolkit for exporting and organising your LinkedIn saved posts.
+A two-part free toolkit for exporting and organising your LinkedIn saved posts.
 
 - **Chrome Extension** — auto-scrolls your LinkedIn saved posts page and exports everything to JSON
-- **My Saves Web App** — import that JSON and manage your posts with buckets, search, AI categorisation, and more
+- **My Saves Web App** — import that JSON and manage your posts with buckets, search, filters, and more
+
+No backend. No account. No cost. Everything runs in your browser.
 
 ---
 
-## Table of Contents
+## How It Works
 
-- [Chrome Extension](#chrome-extension)
-  - [Features](#extension-features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [JSON Output Format](#json-output-format)
-  - [Known Limitations](#known-limitations)
-- [My Saves Web App](#my-saves-web-app)
-  - [Features](#app-features)
-  - [Deploy](#deploy)
-  - [AI Categorisation](#ai-categorisation)
-- [Tech Stack](#tech-stack)
-- [Contributing](#contributing)
+```
+LinkedIn Saved Posts
+        ↓
+  Chrome Extension  ←  install once, run periodically
+        ↓
+  JSON file download
+        ↓
+  My Saves web app  ←  import, organise, revisit
+```
+
+1. Install the Chrome extension
+2. Go to your LinkedIn saved posts and hit **Scrape All** → download the JSON
+3. Upload the JSON to My Saves
+4. Organise your posts into buckets, search, star, pin, archive
+5. Run **Export Latest** periodically to pull in new saves without duplicates
 
 ---
 
 ## Chrome Extension
 
-A Manifest V3 Chrome extension that scrapes `linkedin.com/my-items/saved-posts/` and exports your posts as a JSON file.
+[![Available in the Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue?logo=google-chrome)](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)
 
-### Extension Features
+👉 **[Install from Chrome Web Store](https://chromewebstore.google.com/detail/linkedin-saves-exporter/gjodnbfdffddoliaimeoaanjfldemnmn)**
+
+### Features
 
 | Feature | Description |
 |---|---|
@@ -38,25 +45,6 @@ A Manifest V3 Chrome extension that scrapes `linkedin.com/my-items/saved-posts/`
 | **Timeline Card** | Shows the newest and oldest post collected with a count in between |
 | **Anchor System** | Saves `posts[0]` after every export as the stop point for the next incremental run |
 | **Background Persistence** | Scrape state survives popup close mid-run via a service worker relay |
-
-### Installation
-
-> The extension is currently pending review on the Chrome Web Store. Once approved, install it directly from there.
-
-To install manually in the meantime:
-
-1. Clone or download this repo
-2. Open `chrome://extensions` in Chrome
-3. Enable **Developer mode** (top right toggle)
-4. Click **Load unpacked** and select the `/extension` folder
-
-### Usage
-
-1. Navigate to `linkedin.com/my-items/saved-posts/` and make sure the page is loaded
-2. Click the extension icon in your toolbar
-3. Choose **Export All** (first time) or **Export Latest** (subsequent runs)
-4. Wait for the scrape to complete — the popup shows live progress
-5. Click **Export JSON** to download your posts
 
 ### JSON Output Format
 
@@ -77,7 +65,7 @@ Each post in the exported file follows this shape:
 
 ### Known Limitations
 
-- **Author extraction is best-effort.** LinkedIn's DOM changes frequently. The extension uses `span[aria-hidden="true"]` and semantic class selectors, with a junk filter to remove noise like "Status is offline".
+- **Author extraction is best-effort.** LinkedIn's DOM changes frequently. The extension uses `span[aria-hidden="true"]` and semantic class selectors with a junk filter to remove noise.
 - **No save date.** LinkedIn doesn't include the date a post was saved in the page DOM.
 - **LinkedIn DOM changes.** If LinkedIn ships a major redesign, selectors may need updating.
 
@@ -96,14 +84,17 @@ extension/
 
 ## My Saves Web App
 
-A single-file, zero-backend HTML app for importing, organising, and revisiting your LinkedIn saved posts. Everything runs in the browser using `localStorage` — no server, no build step.
+👉 **[Open My Saves](https://your-username.github.io/your-repo-name)** ← _update this link after deploying_
 
-### App Features
+A single-file, zero-backend HTML app for importing, organising, and revisiting your LinkedIn saved posts. Everything runs in the browser using `localStorage` — no server, no build step, no account required.
+
+### Features
 
 #### Import & Parsing
 - Upload a JSON file exported by the Chrome extension
 - Handles multiline post text, extracts authors correctly, deduplicates by URL and activity ID
-- New posts land in **Imported / Uncategorised** with `bucket: null`
+- New posts land in **Uncategorised** — existing posts are untouched
+- Run periodically with **Export Latest** to pull in only new saves
 
 #### Buckets (Sidebar)
 - **System buckets:** Imported, Uncategorised, Archived, Starred, Pinned
@@ -126,36 +117,25 @@ A single-file, zero-backend HTML app for importing, organising, and revisiting y
 #### UI / UX
 - Dark mode default, light mode toggle (persisted in `localStorage`)
 - Fully mobile responsive — sidebar slides in/out
-- Onboarding screen for new users
-- Import modal with 3-step instructions
+- Onboarding screen for new users with step-by-step instructions
 - Fonts: **Instrument Serif** (logo) + **DM Sans** (UI)
 
 ### Deploy
 
-The app is a single `index.html` file. The easiest way to deploy it:
+The app is a single `index.html` file. Deploy it on GitHub Pages for free:
 
 1. Push `index.html` to a GitHub repository
 2. Go to **Settings → Pages**
 3. Set source to **Deploy from branch: main / root**
-4. Your app will be live at `https://<your-username>.github.io/<repo-name>`
+4. Click **Save**
 
-### AI Categorisation
-
-The app includes an AI categorise feature that calls the Anthropic API directly from the browser.
-
-- Batches 30 posts per request
-- Updates bucket counts in real time as batches complete
-- Supports Cancel and Undo
-
-To use it, you'll need an [Anthropic API key](https://console.anthropic.com). Enter it in the app settings when prompted.
-
-> **Note:** Your API key is stored only in your browser's `localStorage` and is never sent anywhere except directly to `api.anthropic.com`.
+Your app will be live at `https://<your-username>.github.io/<repo-name>` within a minute or two.
 
 ### App File Structure
 
 ```
 /
-├── index.html              # Production deploy file (empty seed data)
+├── index.html              # Production deploy file
 └── saves-organizer.html    # Dev file with seed data for testing
 ```
 
@@ -175,7 +155,6 @@ To use it, you'll need an [Anthropic API key](https://console.anthropic.com). En
 | Chrome Extension | Manifest V3, vanilla JS, service worker |
 | Web App | Single-file HTML, vanilla JS, CSS |
 | Storage | `localStorage` (no backend) |
-| AI | Anthropic API (`claude-sonnet-4-5`) |
 | Analytics | PostHog |
 | Fonts | Google Fonts — Instrument Serif, DM Sans |
 | Deployment | GitHub Pages |
